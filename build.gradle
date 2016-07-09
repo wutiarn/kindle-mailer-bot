@@ -20,11 +20,16 @@ apply plugin: 'application'
 group 'ru.wutiarn'
 version '1.0-SNAPSHOT'
 
+mainClassName="ru.wutiarn.kindlemailerbot.MainKt"
 
 repositories {
     mavenCentral()
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile 'javax.mail:mail:1.5.0-b01'
+    compile 'com.github.pengrad:java-telegram-bot-api:2.1.1'
+    compile 'com.squareup.okhttp3:okhttp:3.4.0-RC1'
 }
