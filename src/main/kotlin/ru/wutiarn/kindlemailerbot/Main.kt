@@ -57,11 +57,17 @@ fun main(args: Array<String>) {
 
 fun processMessage(msg: Message) {
     val chatId = msg.chat().id()
+
+    if (chatId !in setOf<Long>(43457173)) {
+        bot.execute(SendMessage(chatId, "You can't do this."))
+        return
+    }
+
     val file = bot.execute(GetFile(msg.document().fileId())).file()
     val fileUrl = bot.getFullFilePath(file)
-    println("URL: $fileUrl")
 
-    bot.execute(SendMessage(chatId, "Sending ${msg.document().fileName()}..."))
+    val fileName = msg.document().fileName()
+    bot.execute(SendMessage(chatId, "Sending $fileName..."))
 
     val getFileRequest = Request.Builder()
             .url(fileUrl)
@@ -72,23 +78,21 @@ fun processMessage(msg: Message) {
 
     val data = response.body().bytes()
 
-    val extension = fileUrl.split(".").last()
+    sendMessage(data, fileName)
 
-    sendMessage(data, extension)
-
-    bot.execute(SendMessage(chatId, "${msg.document().fileName()} sent."))
+    bot.execute(SendMessage(chatId, "$fileName sent."))
 }
 
-fun sendMessage(data: ByteArray, extension: String) {
+fun sendMessage(data: ByteArray, filename: String) {
     val message = MimeMessage(session)
     message.setFrom("me@wutiarn.ru")
-    message.addRecipients(javax.mail.Message.RecipientType.TO, "wutiarn@gmail.com")
+    message.addRecipients(javax.mail.Message.RecipientType.TO, "rdvlip@kindle.com")
 
     val multipart = MimeMultipart()
 
     val bodyPart = MimeBodyPart()
     bodyPart.dataHandler = DataHandler(ByteArrayDataSource(data, "application/x-mobipocket-ebook"))
-    bodyPart.fileName = "upload.$extension"
+    bodyPart.fileName = filename
 
     multipart.addBodyPart(bodyPart)
     message.setContent(multipart)
