@@ -21,6 +21,7 @@ import javax.mail.internet.MimeMultipart
 import javax.mail.util.ByteArrayDataSource
 
 val telegramToken: String = getEnv("TELEGRAM_TOKEN")
+val kindleEmail: String = getEnv("KINDLE_EMAIL")
 val smtpHost: String = getEnv("SMTP_HOST")
 val smtpEmail: String = getEnv("SMTP_EMAIL")
 val smtpPassword: String = getEnv("SMTP_PASSWORD")
@@ -91,7 +92,7 @@ fun processMessage(msg: Message) {
 fun sendMessage(data: ByteArray, filename: String) {
     val message = MimeMessage(session)
     message.setFrom("me@wutiarn.ru")
-    message.addRecipients(javax.mail.Message.RecipientType.TO, "rdvlip@kindle.com")
+    message.addRecipients(javax.mail.Message.RecipientType.TO, kindleEmail)
 
     val multipart = MimeMultipart()
 
