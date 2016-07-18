@@ -1,0 +1,12 @@
+version: "2"
+
+services:
+  kindle-mailer-bot:
+      build: ./kindle-mailer-bot
+      restart: unless-stopped
+      environment:
+        TELEGRAM_TOKEN: telegram_token
+        SMTP_HOST: smtp.yandex.ru
+        SMTP_EMAIL: example@yandex.ru
+        SMTP_PASSWORD: qweasdzxc
+        KINDLE_EMAIL: example@kindle.com
