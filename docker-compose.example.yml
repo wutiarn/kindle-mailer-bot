@@ -2,7 +2,7 @@ version: "2"
 
 services:
   kindle-mailer-bot:
-      build: .
+      image: registry.gitlab.com/wutiarn/kindle-mailer-bot
       restart: unless-stopped
       environment:
         TELEGRAM_TOKEN: telegram_token
