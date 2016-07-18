@@ -20,26 +20,31 @@ import javax.mail.internet.MimeMessage
 import javax.mail.internet.MimeMultipart
 import javax.mail.util.ByteArrayDataSource
 
+val telegramToken: String = getEnv("TELEGRAM_TOKEN")
+val smtpHost: String = getEnv("SMTP_HOST")
+val smtpEmail: String = getEnv("SMTP_EMAIL")
+val smtpPassword: String = getEnv("SMTP_PASSWORD")
+
 
 val httpClient: OkHttpClient = OkHttpClient().newBuilder()
         .readTimeout(65, TimeUnit.SECONDS)
         .build()
-val bot: TelegramBot = TelegramBotAdapter.buildCustom("268003162:AAFTKcGoZdgGrHJnArtCZtqoiQ8SiI2VPxw", httpClient)
-
+val bot: TelegramBot = TelegramBotAdapter.buildCustom(telegramToken, httpClient)
 
 val props: Properties
     get() {
         val p = Properties()
         p["mail.transport.protocol"] = "smtp"
-        p["mail.smtp.host"] = "smtp.yandex.ru"
+        p["mail.smtp.host"] = smtpHost
         p["mail.smtp.port"] = 587
         p["mail.smtp.auth"] = true
         p["mail.smtp.starttls.enable"] = true
         return p
     }
-val session: Session = Session.getInstance(props, object: Authenticator() {
+
+val session: Session = Session.getInstance(props, object : Authenticator() {
     override fun getPasswordAuthentication(): PasswordAuthentication {
-        return PasswordAuthentication("me@wutiarn.ru", "ziybsgdbbfqporvo")
+        return PasswordAuthentication(smtpEmail, smtpPassword)
     }
 })
 
@@ -99,3 +104,6 @@ fun sendMessage(data: ByteArray, filename: String) {
 
     Transport.send(message)
 }
+
+fun getEnv(name: String): String = System.getenv(name)
+        ?: throw IllegalArgumentException("You must set $name env before start")
