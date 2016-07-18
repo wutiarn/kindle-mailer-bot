@@ -2,7 +2,7 @@ version: "2"
 
 services:
   kindle-mailer-bot:
-      build: ./kindle-mailer-bot
+      build: .
       restart: unless-stopped
       environment:
         TELEGRAM_TOKEN: telegram_token
