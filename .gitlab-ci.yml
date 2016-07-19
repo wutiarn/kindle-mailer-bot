@@ -1,5 +1,10 @@
+stages:
+  - build
+  - deploy
+
 build_image:
   image: docker:git
+  stage: build
   services:
     - docker:dind
   script:
@@ -8,3 +13,9 @@ build_image:
     - docker push registry.gitlab.com/wutiarn/kindle-mailer-bot:latest
   only:
     - master
+
+deploy:
+    image: alpine
+    stage: deploy
+    script:
+    - wget $DEPLOY_TRIGGER_URL -O -
