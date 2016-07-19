@@ -18,4 +18,4 @@ deploy:
     image: alpine
     stage: deploy
     script:
-    - wget $DEPLOY_TRIGGER_URL -O -
+    - wget $DEPLOY_TRIGGER_URL -T 1800 -O -
