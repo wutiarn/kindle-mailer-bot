@@ -15,8 +15,7 @@ build_image:
     - master
 
 deploy:
-  image: alpine
+  image: codecasts/rancher-deployer
   stage: deploy
   script:
-    - apk add -U wget
-    - wget $DEPLOY_TRIGGER_URL -T 1800 -O - --content-on-error
+    - /root/upgrade.sh
