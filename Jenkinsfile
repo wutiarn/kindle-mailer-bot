@@ -25,6 +25,7 @@ node {
 
     stage("Artifacts") {
         image.inside {
+            sh "cp /code/kindle-mailer-bot.jar ."
             archiveArtifacts "kindle-mailer-bot.jar"
             fingerprint "kindle-mailer-bot.jar"
         }
