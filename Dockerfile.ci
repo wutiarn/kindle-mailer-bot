@@ -1,0 +1,7 @@
+FROM #CI_BASE_IMAGE_HERE
+
+WORKDIR /code
+
+ADD build/libs/kindle-mailer-bot.jar .
+
+CMD java -jar kindle-mailer-bot.jar
