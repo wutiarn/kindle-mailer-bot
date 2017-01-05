@@ -26,8 +26,11 @@ mainClassName="ru.wutiarn.kindlemailerbot.MainKt"
 shadowJar {
     baseName = 'kindle-mailer-bot'
     classifier = null
+    destinationDir = new File(buildDir, "dist")
+    classifier = null
     version = null
 }
+
 
 repositories {
     mavenCentral()
