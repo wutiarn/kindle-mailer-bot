@@ -1,4 +1,6 @@
-FROM java:8-jdk
+FROM openjdk:8-alpine
+
+RUN apk add --no-cache bash
 
 ADD . /code
 WORKDIR /code
